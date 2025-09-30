@@ -7,7 +7,7 @@ RESULTS = resultados.txt
 OUTFILE = out.txt
 DATA_DIR = arquivos_dados
 
-DATA_FILES = pontos_10.txt pontos_100.txt pontos_1000.txt pontos_10000.txt pontos_100000.txt pontos_1000000.txt
+DATA_FILES = pontos_1000.txt pontos_10000.txt pontos_100000.txt pontos_1000000.txt
 DATA_PATHS = $(addprefix $(DATA_DIR)/, $(DATA_FILES))
 
 THREADS = 1 2 5 10 20 40

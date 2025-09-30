@@ -15,7 +15,7 @@ os.makedirs(OUT_DIR, exist_ok=True)
 def plot_clusters(out_file):
     try:
         with open(out_file, "r") as f:
-            next(f)  
+            next(f)
             data_str = f.read()
 
         matches = re.findall(r"(\d+\.?\d*),\s*(\d+\.?\d*)\s*->\s*(\d+)", data_str)
@@ -101,12 +101,12 @@ def plot_speedup_efficiency(metrics):
         # Speedup
         plt.figure(figsize=(8, 5))
         plt.plot(threads, speedup, "o-", label="Speedup real")
-        plt.plot(threads, threads, "r--", label="Ideal (linear)")
         plt.xlabel("Threads")
         plt.ylabel("Speedup")
         plt.title(f"Speedup - {nome}")
         plt.grid(True, linestyle="--", alpha=0.6)
         plt.xticks(threads)
+        plt.ylim(0, 5)
         plt.legend()
         plt.tight_layout()
         plt.savefig(os.path.join(OUT_DIR, f"speedup_{safe_name}.png"), dpi=200)

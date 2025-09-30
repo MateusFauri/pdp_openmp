@@ -1,7 +1,7 @@
 import random
 import os
 
-quantidades_pontos = [10, 100, 1000, 10000, 100000, 1000000]
+quantidades_pontos = [1000, 10000, 100000, 1000000]
 
 min_coord = 0.0
 max_coord = 100.0
