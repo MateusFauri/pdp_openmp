@@ -19,9 +19,10 @@ struct point
 
 int main(int argc, char *argv[])
 {
-    if (argc != 4 && argc != 5) {
+    if (argc != 4 && argc != 5)
+    {
         std::cerr << "Uso: " << argv[0]
-                  << " <numero_de_iteracoes> <numero_de_clusters> <nome_do_arquivo> [arquivo_de_saida]" 
+                  << " <numero_de_iteracoes> <numero_de_clusters> <nome_do_arquivo> [arquivo_de_saida]"
                   << std::endl;
         return 1;
     }
@@ -35,7 +36,8 @@ int main(int argc, char *argv[])
         t = std::stoul(argv[1]);
         k = std::stoul(argv[2]);
         filename = argv[3];
-        if (argc == 5) {
+        if (argc == 5)
+        {
             output_filename = argv[4];
         }
     }
@@ -92,7 +94,7 @@ int main(int argc, char *argv[])
 
     std::vector<point> centers(k);
     std::random_device rd;
-    std::mt19937 gen(rd());
+    std::mt19937 gen(42); 
     std::uniform_real_distribution<> distrib_x(min_x, max_x);
     std::uniform_real_distribution<> distrib_y(min_y, max_y);
 
@@ -131,15 +133,15 @@ int main(int argc, char *argv[])
         std::vector<double> sum_y(k, 0.0);
         std::vector<int> count(k, 0);
 
-        // Paraleliza a soma local e depois faz uma soma global
-        #pragma omp parallel
+// Paraleliza a soma local e depois faz uma soma global
+#pragma omp parallel
         {
             std::vector<double> local_sum_x(k, 0.0);
             std::vector<double> local_sum_y(k, 0.0);
             std::vector<int> local_count(k, 0);
 
-            // Dividir o trabalho entre as threads
-            #pragma omp for nowait
+// Dividir o trabalho entre as threads
+#pragma omp for nowait
             for (int f = 0; f < init.size(); f++)
             {
                 int c = init[f].cluster;
@@ -147,9 +149,9 @@ int main(int argc, char *argv[])
                 local_sum_y[c] += init[f].y;
                 local_count[c]++;
             }
-            
-            // Combinar os resultados locais em variáveis globais
-            #pragma omp critical
+
+// Combinar os resultados locais em variáveis globais
+#pragma omp critical
             {
                 for (int c = 0; c < k; c++)
                 {
@@ -159,7 +161,6 @@ int main(int argc, char *argv[])
                 }
             }
         }
-
 
         for (unsigned int f = 0; f < k; f++)
         {
@@ -173,14 +174,16 @@ int main(int argc, char *argv[])
     double t_final = omp_get_wtime();
 
     std::ofstream ofile(output_filename);
-    if (!ofile.is_open()) {
+    if (!ofile.is_open())
+    {
         std::cerr << "Erro: Não foi possível criar o arquivo de saída." << std::endl;
         return 1;
     }
 
     ofile << "Tempo gasto no loop: " << t_final - t_inicial << "\n";
 
-    for (unsigned int i = 0; i < init.size(); i++) {
+    for (unsigned int i = 0; i < init.size(); i++)
+    {
         ofile << init[i].x << ", " << init[i].y << " -> " << init[i].cluster << "\n";
     }
 

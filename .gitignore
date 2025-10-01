@@ -9,3 +9,5 @@ arquivos_dados/*
 terminal.txt
 out/*
 execution_times.txt
+*.zip
+.vscode
