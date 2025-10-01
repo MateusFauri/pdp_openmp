@@ -2,13 +2,13 @@
 
 EXEC="./k-means_exec"
 DATA_DIR="./arquivos_dados"
-OUT_DIR="./plots"
+OUT_DIR="./out"
 VTUNE_OUT="./vtune_results"
 RESULT_FILE="execution_times.txt"
 ITERATIONS=100
 CLUSTERS=5
 
-DATA_FILES=("pontos_1000.txt" "pontos_10000.txt" "pontos_100000.txt" "pontos_1000000.txt")
+DATA_FILES=("pontos_1000.txt" "pontos_10000.txt" "pontos_100000.txt" "pontos_1000000.txt" "pontos_5000000.txt" "pontos_10000000.txt")
 
 NUM_THREADS_LIST=(1 2 5 10 20 40)
 
@@ -47,9 +47,9 @@ for t in "${NUM_THREADS_LIST[@]}"; do
 
         if [ $VTUNE_ACTIVE -eq 1 ]; then
             VTUNE_OUTPUT="$VTUNE_OUT/vtune_${f%.txt}_threads${t}"
-            vtune -collect hpc-performance -r $VTUNE_OUTPUT $EXEC $ITERATIONS $CLUSTERS $FILE_PATH &> $OUT_FILE
+            vtune -collect hpc-performance -r $VTUNE_OUTPUT $EXEC $ITERATIONS $CLUSTERS $FILE_PATH  $OUT_FILE
         else
-            $EXEC $ITERATIONS $CLUSTERS $FILE_PATH &> $OUT_FILE
+            $EXEC $ITERATIONS $CLUSTERS $FILE_PATH $OUT_FILE
         fi
 
         ext_code=$?

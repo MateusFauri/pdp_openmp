@@ -19,20 +19,25 @@ struct point
 
 int main(int argc, char *argv[])
 {
-    if (argc != 4)
-    {
-        std::cerr << "Uso: " << argv[0] << " <numero_de_iteracoes> <numero_de_clusters> <nome_do_arquivo>" << std::endl;
+    if (argc != 4 && argc != 5) {
+        std::cerr << "Uso: " << argv[0]
+                  << " <numero_de_iteracoes> <numero_de_clusters> <nome_do_arquivo> [arquivo_de_saida]" 
+                  << std::endl;
         return 1;
     }
 
     unsigned int t, k; // t - número de iterações do algoritmo, k - quantidade de clusters
     std::string filename;
+    std::string output_filename = "out.txt";
 
     try
     {
         t = std::stoul(argv[1]);
         k = std::stoul(argv[2]);
         filename = argv[3];
+        if (argc == 5) {
+            output_filename = argv[4];
+        }
     }
     catch (const std::exception &e)
     {
@@ -167,19 +172,18 @@ int main(int argc, char *argv[])
     }
     double t_final = omp_get_wtime();
 
-    std::ofstream ofile("out.txt");
-    if (!ofile.is_open())
-    {
-        std::cerr << "Error: Unable to create output file." << std::endl;
+    std::ofstream ofile(output_filename);
+    if (!ofile.is_open()) {
+        std::cerr << "Erro: Não foi possível criar o arquivo de saída." << std::endl;
         return 1;
     }
+
     ofile << "Tempo gasto no loop: " << t_final - t_inicial << "\n";
 
-    for (unsigned int i = 0; i < init.size(); i++)
-    {
+    for (unsigned int i = 0; i < init.size(); i++) {
         ofile << init[i].x << ", " << init[i].y << " -> " << init[i].cluster << "\n";
     }
-    ofile.close();
 
+    ofile.close();
     return 0;
 }

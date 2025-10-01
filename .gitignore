@@ -4,5 +4,8 @@ vtune_results/*
 *_exec  
 resultados.txt  
 out.txt
-arquivos_dados/*.py
+arquivos_dados/*
 *.o
+terminal.txt
+out/*
+execution_times.txt
