@@ -18,10 +18,6 @@ mkdir -p $DATA_DIR
 
 echo "Arquivo Num_Pontos Threads Tempo(s)" > "$RESULT_FILE"
 
-echo "Gerando arquivos de pontos..."
-python3 gerar_pontos.py || { echo "Erro ao gerar pontos, abortando."; exit 1; }
-echo "Arquivos de pontos gerados com sucesso."
-
 
 # Checa se VTune está ativo
 if [ -z "$VTUNE_ACTIVE" ]; then

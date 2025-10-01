@@ -19,6 +19,7 @@ cd ./pdp_run
 
 make clean 
 make
+make generate
 
 export VTUNE_ACTIVE=1
 time ./get_results.sh 2>&1 >$SAVE_DIR/vtune_pdp_kmeans_slurm.log | tee  -a $SAVE_DIR/vtune_pdp_kmeans_slurm.log > ./vtune_pdp_kmeans_slurm.log
