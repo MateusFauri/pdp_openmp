@@ -2,13 +2,13 @@
 
 EXEC="./k-means_exec"
 DATA_DIR="./arquivos_dados"
-OUT_DIR="./out"
-VTUNE_OUT="./vtune_out"
+OUT_DIR="./plots"
+VTUNE_OUT="./vtune_results"
 RESULT_FILE="execution_times.txt"
 ITERATIONS=100
 CLUSTERS=5
 
-DATA_FILES=("pontos_10.txt" "pontos_100.txt" "pontos_1000.txt" "pontos_10000.txt" "pontos_100000.txt" "pontos_1000000.txt")
+DATA_FILES=("pontos_1000.txt" "pontos_10000.txt" "pontos_100000.txt" "pontos_1000000.txt")
 
 NUM_THREADS_LIST=(1 2 5 10 20 40)
 

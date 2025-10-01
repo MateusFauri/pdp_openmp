@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=pdp_jacobi
+#SBATCH --job-name=pdp_kmeans
 #SBATCH --partition=hype
 #SBATCH --nodes=1
 #SBATCH --ntasks=40
@@ -21,10 +21,10 @@ make clean
 make
 
 export VTUNE_ACTIVE=1
-time ./get_results.sh 2>&1 >$SAVE_DIR/vtune_pdp_jacobi_slurm.log | tee  -a $SAVE_DIR/vtune_pdp_jacobi_slurm.log > ./vtune_pdp_jacobi_slurm.log
+time ./get_results.sh 2>&1 >$SAVE_DIR/vtune_pdp_kmeans_slurm.log | tee  -a $SAVE_DIR/vtune_pdp_kmeans_slurm.log > ./vtune_pdp_kmeans_slurm.log
 
 export VTUNE_ACTIVE=""
-time ./get_results.sh 2>&1 >$SAVE_DIR/pdp_jacobi_slurm.log | tee  -a $SAVE_DIR/pdp_jacobi_slurm.log > ./pdp_jacobi_slurm.log
+time ./get_results.sh 2>&1 >$SAVE_DIR/pdp_kmeans_slurm.log | tee  -a $SAVE_DIR/pdp_kmeans_slurm.log > ./pdp_kmeans_slurm.log
 
 touch save.tgz
 tar cvzf save.tgz --exclude=save.tgz --exclude=.git . || rm save.tgz
