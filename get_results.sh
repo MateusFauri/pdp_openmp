@@ -55,7 +55,7 @@ for t in "${NUM_THREADS_LIST[@]}"; do
             mkdir -p $VTUNE_OUTPUT
             vtune -collect hpc-performance -r $VTUNE_OUTPUT -- $EXEC $ITERATIONS $CLUSTERS $FILE_PATH $OUT_FILE
 
-            vtune -report summary -r $VTUNE_OUTPUT --csv "${VTUNE_OUTPUT}_summary.csv"
+            vtune -report summary -r $VTUNE_OUTPUT -report-output "${VTUNE_OUTPUT}_summary.txt"
         fi
 
         end_time=$(date +%s.%N)
