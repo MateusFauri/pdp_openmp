@@ -46,15 +46,18 @@ for t in "${NUM_THREADS_LIST[@]}"; do
         echo "Executando $f com $t threads..."
 
         start_time=$(date +%s.%N)
+        
+        $EXEC $ITERATIONS $CLUSTERS $FILE_PATH $OUT_FILE
+        ext_code=$?
 
         if [ $VTUNE_ACTIVE -eq 1 ]; then
             VTUNE_OUTPUT="$VTUNE_OUT/vtune_${f%.txt}_threads${t}"
-            vtune -collect hpc-performance -r $VTUNE_OUTPUT $EXEC $ITERATIONS $CLUSTERS $FILE_PATH  $OUT_FILE
-        else
-            $EXEC $ITERATIONS $CLUSTERS $FILE_PATH $OUT_FILE
+            mkdir -p $VTUNE_OUTPUT
+            vtune -collect hpc-performance -r $VTUNE_OUTPUT -- $EXEC $ITERATIONS $CLUSTERS $FILE_PATH $OUT_FILE
+
+            vtune -report summary -r $VTUNE_OUTPUT --csv "${VTUNE_OUTPUT}_summary.csv"
         fi
 
-        ext_code=$?
         end_time=$(date +%s.%N)
 
         if [ -f "$OUT_FILE" ]; then
