@@ -12,3 +12,5 @@ execution_times.txt
 *.zip
 .vscode
 hpc
+*.csv
+vtune_log.txt
